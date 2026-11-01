@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supplier Map</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Leaflet MarkerCluster CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: white;
+      padding: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+      color: #1f2937;
+    }
+
+    .filters {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .filter-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    .filter-item input {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    .filter-item.supplier span {
+      color: #2563eb;
+      font-weight: 500;
+    }
+
+    .filter-item.sub-supplier span {
+      color: #ea580c;
+      font-weight: 500;
+    }
+
+    #map {
+      flex: 1;
+    }
+
+    .loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 1000;
+    }
+
+    .spinner {
+      width: 2rem;
+      height: 2rem;
+      border: 3px solid #e5e7eb;
+      border-top-color: #2563eb;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 0.5rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .error {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      padding: 2rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+
+    .error h2 {
+      color: #dc2626;
+      margin-bottom: 0.5rem;
+    }
+
+    .popup-name {
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    .popup-address {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin-top: 0.25rem;
+    }
+
+    .popup-badge {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.125rem 0.5rem;
+      font-size: 0.75rem;
+      border-radius: 9999px;
+    }
+
+    .popup-badge.supplier {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .popup-badge.sub-supplier {
+      background: #ffedd5;
+      color: #c2410c;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Supplier Map</h1>
+    <div class="filters">
+      <label class="filter-item supplier">
+        <input type="checkbox" id="filter-suppliers" checked>
+        <span>Suppliers</span>
+      </label>
+      <label class="filter-item sub-supplier">
+        <input type="checkbox" id="filter-sub-suppliers" checked>
+        <span>Sub-suppliers</span>
+      </label>
+    </div>
+  </header>
+
+  <div id="map">
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <p>Loading suppliers...</p>
+    </div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Leaflet MarkerCluster JS -->
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+
+  <script src="app.js"></script>
+</body>
+</html>

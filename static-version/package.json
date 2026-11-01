@@ -1,0 +1,13 @@
+{
+  "name": "suppliermap-static",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static Supplier Map - No build step required",
+  "scripts": {
+    "preprocess": "node scripts/preprocess.js",
+    "serve": "npx serve ."
+  },
+  "devDependencies": {
+    "xlsx": "^0.18.5"
+  }
+}
